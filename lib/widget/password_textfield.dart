@@ -24,7 +24,7 @@ Widget passField({
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
+        SizedBox(
           width: 200.0,
           child: TextField(
             textAlignVertical: TextAlignVertical.center,
@@ -56,6 +56,4 @@ void _togglePasswordView() {
   } else {
     isObs = true;
   }
-
-  setState(() {});
 }

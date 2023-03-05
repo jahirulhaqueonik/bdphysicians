@@ -63,8 +63,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _loginPageImage() {
     return Container(
       alignment: Alignment.center,
-      child: Image.asset('assets/images/login_page.png'),
       height: 150.0,
+      child: Image.asset('assets/images/login_page.png'),
     );
   }
 

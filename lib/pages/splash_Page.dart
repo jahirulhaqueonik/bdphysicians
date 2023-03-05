@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bdphysicians/core/colors.dart';
 import 'package:bdphysicians/core/space.dart';
 import 'package:bdphysicians/core/text_style.dart';
+import 'package:bdphysicians/pages/forget_pass.dart';
 import 'package:bdphysicians/pages/login_page.dart';
 import 'package:bdphysicians/widget/main_button.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => LoginPage(),
+            builder: (context) => ForgetPass(),
           ));
     });
   }
