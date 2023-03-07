@@ -1,7 +1,6 @@
 import 'package:bdphysicians/core/colors.dart';
 import 'package:bdphysicians/core/text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 bool isObs = true;
 

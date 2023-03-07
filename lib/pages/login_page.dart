@@ -2,8 +2,7 @@ import 'package:bdphysicians/core/colors.dart';
 import 'package:bdphysicians/core/space.dart';
 import 'package:bdphysicians/core/text_style.dart';
 import 'package:bdphysicians/pages/signup_page.dart';
-import 'package:bdphysicians/widget/main_button.dart';
-import 'package:bdphysicians/widget/password_textfield.dart';
+import 'package:bdphysicians/widget/customized_button.dart';
 import 'package:bdphysicians/widget/text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -15,13 +14,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController userName = TextEditingController();
-  TextEditingController userPass = TextEditingController();
+  final TextEditingController _userEmail = TextEditingController();
+  final TextEditingController _userPass = TextEditingController();
   final bool _rememberMe = false;
 
   Widget _buildLogo() {
     return Padding(
-      padding: const EdgeInsets.only(left: 15.0),
+      padding: const EdgeInsets.only(left: 30.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -87,11 +86,16 @@ class _LoginPageState extends State<LoginPage> {
             const SpaceVH(height: 30.0),
             _loginPageImage(),
             const SpaceVH(height: 10.0),
-            textField(
-                controller: userName,
-                image: 'user.svg',
-                hintText: 'UserName/email'),
-            passField(controller: userPass, hintText: 'Password'),
+            CustomizedTextField(
+              myController: _userEmail,
+              hintText: 'abc@example.com',
+              isPassword: false,
+            ),
+            CustomizedTextField(
+              myController: _userPass,
+              hintText: 'Your Password',
+              isPassword: true,
+            ),
             Align(
               alignment: Alignment.centerRight,
               child: Padding(
@@ -110,9 +114,9 @@ class _LoginPageState extends State<LoginPage> {
               alignment: Alignment.bottomCenter,
               child: Column(
                 children: [
-                  Mainbutton(
-                    onTap: () {},
-                    text: 'SIGN IN',
+                  CustomizedButton(
+                    onPressed: () {},
+                    buttonText: 'SIGN IN',
                     btnColor: blueButton,
                     textColor: whiteText,
                   )
@@ -122,8 +126,10 @@ class _LoginPageState extends State<LoginPage> {
             const SpaceVH(height: 10.0),
             TextButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (builder) => SignUpPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (builder) => const SignUpPage()));
               },
               child: RichText(
                 text: TextSpan(children: [

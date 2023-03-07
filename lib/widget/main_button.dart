@@ -3,14 +3,14 @@ import 'package:bdphysicians/core/text_style.dart';
 import 'package:flutter/material.dart';
 
 class Mainbutton extends StatelessWidget {
-  final Function() onTap;
+  final Function? onPressed;
   final String text;
   final String? images;
   final Color? textColor;
   final Color btnColor;
   const Mainbutton({
     Key? key,
-    required this.onTap,
+    this.onPressed,
     required this.text,
     this.images,
     this.textColor,

@@ -1,9 +1,11 @@
 import 'package:bdphysicians/core/colors.dart';
 import 'package:bdphysicians/core/space.dart';
 import 'package:bdphysicians/core/text_style.dart';
-import 'package:bdphysicians/widget/main_button.dart';
-import 'package:bdphysicians/widget/secondary_button.dart';
+import 'package:bdphysicians/pages/login_page.dart';
+import 'package:bdphysicians/services/firebase_auth_service.dart';
+import 'package:bdphysicians/widget/customized_button.dart';
 import 'package:bdphysicians/widget/text_field.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -16,7 +18,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
-  TextEditingController userName = TextEditingController();
+  TextEditingController userEmail = TextEditingController();
   TextEditingController userPhone = TextEditingController();
   TextEditingController userPass = TextEditingController();
   TextEditingController userConfirmPass = TextEditingController();
@@ -43,21 +45,19 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _welcomeText() {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text(
-            'Do not have an account?\nCreate your account',
-            style: headline1,
-          ),
-          SpaceVH(height: 10.0),
-          Text(
-            'It/s a quick and easy',
-            style: subheadline,
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        Text(
+          'Do not have an account?\nCreate your account',
+          style: headline1,
+        ),
+        SpaceVH(height: 10.0),
+        Text(
+          'It/s a quick and easy',
+          style: subheadline,
+        ),
+      ],
     );
   }
 
@@ -80,34 +80,51 @@ class _SignUpPageState extends State<SignUpPage> {
             const SpaceVH(height: 30.0),
             Column(
               children: [
-                textField(
-                    controller: userName, image: '', hintText: 'First Nmae'),
-                textField(
-                    controller: lastName, image: '', hintText: 'Last Nmae'),
+                CustomizedTextField(
+                  myController: firstName,
+                  hintText: 'First Nmae',
+                  isPassword: false,
+                ),
+                CustomizedTextField(
+                  myController: lastName,
+                  hintText: 'Last Nmae',
+                  isPassword: false,
+                ),
               ],
             ),
-            textField(
-                controller: userName,
-                image: 'user.svg',
-                hintText: 'UserNmae/Email'),
-            textField(
-                controller: userPhone,
-                image: 'phone.svg',
-                hintText: 'Phone',
-                keyBoardType: TextInputType.phone),
-            textField(
-                controller: userPass, image: 'pass.svg', hintText: 'Password'),
+            CustomizedTextField(
+              myController: userEmail,
+              hintText: 'Email',
+              isPassword: false,
+            ),
+            CustomizedTextField(
+                myController: userPhone, hintText: 'Phone', isPassword: false),
+            CustomizedTextField(
+              myController: userPass,
+              hintText: 'Password',
+              isPassword: true,
+            ),
             const SpaceVH(height: 10.0),
             Align(
               alignment: Alignment.bottomCenter,
               child: Column(
                 children: [
-                  Mainbutton(
-                    onTap: () {},
-                    text: 'SIGN UP',
-                    btnColor: blueButton,
-                    textColor: whiteText,
-                  )
+                  CustomizedButton(
+                      buttonText: 'SIGN UP',
+                      btnColor: blueButton,
+                      textColor: whiteText,
+                      onPressed: () async {
+                        try {
+                          await FirebaseAuthService().signup(
+                              userEmail.text.trim(), userPass.text.trim());
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                        } on FirebaseException catch (e) {
+                          print(e.message);
+                        }
+                      })
                 ],
               ),
             ),

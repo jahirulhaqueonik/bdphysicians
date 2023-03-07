@@ -1,12 +1,8 @@
+import 'package:bdphysicians/pages/login_page.dart';
+import 'package:flutter/material.dart';
 import 'dart:async';
-
-import 'package:bdphysicians/core/colors.dart';
 import 'package:bdphysicians/core/space.dart';
 import 'package:bdphysicians/core/text_style.dart';
-import 'package:bdphysicians/pages/forget_pass.dart';
-import 'package:bdphysicians/pages/login_page.dart';
-import 'package:bdphysicians/widget/main_button.dart';
-import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,11 +16,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => ForgetPass(),
+            builder: (context) => const LoginPage(),
           ));
     });
   }
@@ -40,7 +36,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Image.asset('assets/images/logo.png'),
-                SpaceVH(height: 20.0),
+                const SpaceVH(height: 20.0),
                 const Text(
                   'Welcome To BD Physicians',
                   style: headline1,

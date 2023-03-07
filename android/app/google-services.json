@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "30123225184",
+    "project_id": "bd-physicians",
+    "storage_bucket": "bd-physicians.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30123225184:android:535607336b768af3045305",
+        "android_client_info": {
+          "package_name": "com.example.bdphysicians"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "30123225184-mr4iba45smqvaleqv7dr6r8r8eljlupt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpYHsqw1XPaSRue01pyhdotgBuGBZ0OSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "30123225184-mr4iba45smqvaleqv7dr6r8r8eljlupt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

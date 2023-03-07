@@ -1,8 +1,12 @@
 import 'package:bdphysicians/core/style.dart';
-import 'package:bdphysicians/pages/splash_page.dart';
+import 'package:bdphysicians/firebase_options.dart';
+import 'package:bdphysicians/pages/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  await WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
