@@ -27,19 +27,22 @@ class CustomizedTextField extends StatelessWidget {
         color: whiteTextFild,
         borderRadius: BorderRadius.circular(25.0),
       ),
-      // child: (
-      //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //  children: [
-      // SizedBox(
-      //  width: 250.0,
       child: TextField(
+        keyboardType: isPassword!
+            ? TextInputType.visiblePassword
+            : TextInputType.emailAddress,
+        enableSuggestions: isPassword! ? false : true,
+        autocorrect: isPassword! ? false : true,
         textAlignVertical: TextAlignVertical.center,
         controller: myController,
         obscureText: isPassword ?? true,
         decoration: InputDecoration(
           suffixIcon: isPassword!
               ? IconButton(
-                  icon: const Icon(Icons.remove_red_eye),
+                  icon: const Icon(
+                    Icons.remove_red_eye,
+                    color: Colors.grey,
+                  ),
                   onPressed: () {},
                 )
               : null,
@@ -49,14 +52,12 @@ class CustomizedTextField extends StatelessWidget {
           hintStyle: hintStyle,
         ),
         style: headline2,
-        //   ),
-        //  ),
+
         // SvgPicture.asset(
         //   'assets/icon/$image',
         //   height: 20.0,
         //   //color: grayText,
         // )
-        //   ],
       ),
     );
   }

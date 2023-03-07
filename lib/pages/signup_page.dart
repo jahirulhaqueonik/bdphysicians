@@ -18,9 +18,9 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
-  TextEditingController userEmail = TextEditingController();
+  TextEditingController _userEmail = TextEditingController();
   TextEditingController userPhone = TextEditingController();
-  TextEditingController userPass = TextEditingController();
+  TextEditingController _userPass = TextEditingController();
   TextEditingController userConfirmPass = TextEditingController();
 
   Widget _buildLogo() {
@@ -93,14 +93,14 @@ class _SignUpPageState extends State<SignUpPage> {
               ],
             ),
             CustomizedTextField(
-              myController: userEmail,
+              myController: _userEmail,
               hintText: 'Email',
               isPassword: false,
             ),
             CustomizedTextField(
                 myController: userPhone, hintText: 'Phone', isPassword: false),
             CustomizedTextField(
-              myController: userPass,
+              myController: _userPass,
               hintText: 'Password',
               isPassword: true,
             ),
@@ -116,13 +116,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       onPressed: () async {
                         try {
                           await FirebaseAuthService().signup(
-                              userEmail.text.trim(), userPass.text.trim());
+                              _userEmail.text.trim(), _userPass.text.trim());
+                          if (!mounted) return;
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const LoginPage()));
                         } on FirebaseException catch (e) {
-                          print(e.message);
+                          debugPrint(e.message);
                         }
                       })
                 ],

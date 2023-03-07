@@ -1,9 +1,12 @@
 import 'package:bdphysicians/core/colors.dart';
 import 'package:bdphysicians/core/space.dart';
 import 'package:bdphysicians/core/text_style.dart';
+import 'package:bdphysicians/pages/main_screen.dart';
 import 'package:bdphysicians/pages/signup_page.dart';
+import 'package:bdphysicians/services/firebase_auth_service.dart';
 import 'package:bdphysicians/widget/customized_button.dart';
 import 'package:bdphysicians/widget/text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -115,11 +118,62 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 children: [
                   CustomizedButton(
-                    onPressed: () {},
-                    buttonText: 'SIGN IN',
-                    btnColor: blueButton,
-                    textColor: whiteText,
-                  )
+                      buttonText: 'SIGN IN',
+                      btnColor: blueButton,
+                      textColor: whiteText,
+                      onPressed: () async {
+                        try {
+                          await FirebaseAuthService().login(
+                              _userEmail.text.trim(), _userPass.text.trim());
+                          if (FirebaseAuth.instance.currentUser != null) {
+                            if (!mounted) return;
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const MainScreen()));
+                          }
+                          // else {
+                          //   showDialog(
+                          //       context: context,
+                          //       builder: (context) => AlertDialog(
+                          //             title:
+                          //                 Text("Invalid Username or password!"),
+                          //             actions: [
+                          //               ElevatedButton(
+                          //                 child: Text("Sign Up Now"),
+                          //                 onPressed: () {
+                          //                   Navigator.push(
+                          //                       context,
+                          //                       MaterialPageRoute(
+                          //                           builder: (context) =>
+                          //                               const SignUpPage()));
+                          //                 },
+                          //               )
+                          //             ],
+                          //           ));
+                          // }
+                        } on FirebaseException catch (e) {
+                          debugPrint("error is${e.message}");
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: const Text(
+                                        "Invalid Username or password!"),
+                                    actions: [
+                                      ElevatedButton(
+                                        child: const Text("Sign Up Now"),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const SignUpPage()));
+                                        },
+                                      )
+                                    ],
+                                  ));
+                        }
+                      })
                 ],
               ),
             ),
