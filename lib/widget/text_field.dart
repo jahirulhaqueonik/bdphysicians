@@ -1,18 +1,46 @@
 import 'package:bdphysicians/core/colors.dart';
 import 'package:bdphysicians/core/text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-class CustomizedTextField extends StatelessWidget {
+class CustomizedTextField extends StatefulWidget {
   final TextEditingController myController;
   final String? hintText;
   final bool? isPassword;
+  final VoidCallback? onBlur;
   const CustomizedTextField({
     Key? key,
     required this.myController,
     required this.hintText,
     this.isPassword,
+    this.onBlur,
+    // required IconData prefixIcon,
   }) : super(key: key);
+  @override
+  _CustomizedTextFieldState createState() => _CustomizedTextFieldState();
+}
+
+class _CustomizedTextFieldState extends State<CustomizedTextField> {
+  bool _isPasswordVisible = false;
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+    _focusNode.addListener(() {
+      if (!_focusNode.hasFocus) {
+        setState(() {
+          _isPasswordVisible = false;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,36 +56,51 @@ class CustomizedTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(25.0),
       ),
       child: TextField(
-        keyboardType: isPassword!
+        keyboardType: widget.isPassword!
             ? TextInputType.visiblePassword
             : TextInputType.emailAddress,
-        enableSuggestions: isPassword! ? false : true,
-        autocorrect: isPassword! ? false : true,
+        enableSuggestions: widget.isPassword! ? false : true,
+        autocorrect: widget.isPassword! ? false : true,
         textAlignVertical: TextAlignVertical.center,
-        controller: myController,
-        obscureText: isPassword ?? true,
+        controller: widget.myController,
+        obscureText: _isPasswordVisible && widget.isPassword! ? false : true,
+        focusNode: _focusNode,
         decoration: InputDecoration(
-          suffixIcon: isPassword!
-              ? IconButton(
-                  icon: const Icon(
-                    Icons.remove_red_eye,
+          suffix: widget.isPassword!
+              ? GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                  child: Icon(
+                    _isPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off,
                     color: Colors.grey,
                   ),
-                  onPressed: () {},
                 )
               : null,
           border: InputBorder.none,
-          // filled: true,
-          hintText: hintText,
+          hintText: widget.hintText,
           hintStyle: hintStyle,
         ),
         style: headline2,
-
-        // SvgPicture.asset(
-        //   'assets/icon/$image',
-        //   height: 20.0,
-        //   //color: grayText,
-        // )
+        // onTap: () {
+        //   if (widget.isPassword! && _isPasswordVisible) {
+        //     setState(() {
+        //       _isPasswordVisible = !_isPasswordVisible;
+        //     });
+        //   }
+        // },
+        // onEditingComplete: widget.onBlur,
+        // onSubmitted: (value) {
+        //   if (widget.isPassword! && _isPasswordVisible) {
+        //     setState(() {
+        //       _isPasswordVisible = !_isPasswordVisible;
+        //     });
+        //   }
+        // },
       ),
     );
   }

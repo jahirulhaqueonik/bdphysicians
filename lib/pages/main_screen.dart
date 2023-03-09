@@ -1,16 +1,13 @@
+import 'package:bdphysicians/auth_controller.dart';
+import 'package:bdphysicians/core/colors.dart';
 import 'package:bdphysicians/pages/login_page.dart';
+import 'package:bdphysicians/widget/customized_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
 
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  final String? userName = FirebaseAuth.instance.currentUser?.displayName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,18 +16,15 @@ class _MainScreenState extends State<MainScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Hello $userName'),
-            ElevatedButton(
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                if (!mounted) return;
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) {
-                  return const LoginPage();
-                }));
-              },
-              child: const Text('Sign Out'),
-            ),
+            GestureDetector(
+                onTap: () => {
+                      AuthController().logedOut(),
+                    },
+                child: const CustomizedButton(
+                  buttonText: "Sign Out",
+                  btnColor: blueButton,
+                  textColor: whiteText,
+                ))
           ],
         ),
       ),

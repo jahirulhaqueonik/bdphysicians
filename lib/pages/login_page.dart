@@ -1,3 +1,4 @@
+import 'package:bdphysicians/auth_controller.dart';
 import 'package:bdphysicians/core/colors.dart';
 import 'package:bdphysicians/core/space.dart';
 import 'package:bdphysicians/core/text_style.dart';
@@ -7,6 +8,7 @@ import 'package:bdphysicians/services/firebase_auth_service.dart';
 import 'package:bdphysicians/widget/customized_button.dart';
 import 'package:bdphysicians/widget/text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -113,94 +115,74 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SpaceVH(height: 10.0),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                children: [
-                  CustomizedButton(
+            GestureDetector(
+              onTap: () {
+                AuthController.instance.login(
+                  _userEmail.text.trim(),
+                  _userPass.text.trim(),
+                );
+              },
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  children: const [
+                    CustomizedButton(
                       buttonText: 'SIGN IN',
                       btnColor: blueButton,
                       textColor: whiteText,
-                      onPressed: () async {
-                        try {
-                          await FirebaseAuthService().login(
-                              _userEmail.text.trim(), _userPass.text.trim());
-                          if (FirebaseAuth.instance.currentUser != null) {
-                            if (!mounted) return;
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MainScreen()));
-                          }
-                          // else {
-                          //   showDialog(
-                          //       context: context,
-                          //       builder: (context) => AlertDialog(
-                          //             title:
-                          //                 Text("Invalid Username or password!"),
-                          //             actions: [
-                          //               ElevatedButton(
-                          //                 child: Text("Sign Up Now"),
-                          //                 onPressed: () {
-                          //                   Navigator.push(
-                          //                       context,
-                          //                       MaterialPageRoute(
-                          //                           builder: (context) =>
-                          //                               const SignUpPage()));
-                          //                 },
-                          //               )
-                          //             ],
-                          //           ));
-                          // }
-                        } on FirebaseException catch (e) {
-                          debugPrint("error is${e.message}");
-                          showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                    title: const Text(
-                                        "Invalid Username or password!"),
-                                    actions: [
-                                      ElevatedButton(
-                                        child: const Text("Sign Up Now"),
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const SignUpPage()));
-                                        },
-                                      )
-                                    ],
-                                  ));
-                        }
-                      })
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
             const SpaceVH(height: 10.0),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (builder) => const SignUpPage()));
-              },
-              child: RichText(
-                text: TextSpan(children: [
-                  TextSpan(
-                    text: 'Do not have an account?',
-                    style: headline1.copyWith(
-                      fontSize: 14.0,
-                    ),
+            RichText(
+              text: TextSpan(children: [
+                TextSpan(
+                  text: 'Don\'t have an account?',
+                  style: headline1.copyWith(
+                    fontSize: 14.0,
                   ),
-                  TextSpan(
-                      text: 'Sign Up',
-                      style: headlineDot.copyWith(
-                        fontSize: 14.0,
-                      )),
-                ]),
-              ),
+                  children: [
+                    TextSpan(
+                        text: 'Sign Up',
+                        style: headlineDot.copyWith(
+                          fontSize: 14.0,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignUpPage()));
+                          })
+                  ],
+                ),
+              ]),
             ),
+            // TextButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //             builder: (builder) => const SignUpPage()));
+            //   },
+            //   child: RichText(
+            //     text: TextSpan(children: [
+            //       TextSpan(
+            //         text: 'Do not have an account?',
+            //         style: headline1.copyWith(
+            //           fontSize: 14.0,
+            //         ),
+            //       ),
+            //       TextSpan(
+            //           text: 'Sign Up',
+            //           style: headlineDot.copyWith(
+            //             fontSize: 14.0,
+            //           )),
+            //     ]),
+            //   ),
+            // ),
           ],
         ),
       ),

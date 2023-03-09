@@ -1,3 +1,4 @@
+import 'package:bdphysicians/core/text_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomizedButton extends StatelessWidget {
@@ -5,13 +6,13 @@ class CustomizedButton extends StatelessWidget {
   final Color? btnColor;
   final Color? textColor;
   final VoidCallback? onPressed;
-  const CustomizedButton(
-      {Key? key,
-      this.buttonText,
-      this.btnColor,
-      this.textColor,
-      this.onPressed})
-      : super(key: key);
+  const CustomizedButton({
+    Key? key,
+    this.buttonText,
+    this.btnColor,
+    this.textColor,
+    this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +21,20 @@ class CustomizedButton extends StatelessWidget {
       child: InkWell(
         onTap: onPressed,
         child: Container(
-          height: 70,
-          width: MediaQuery.of(context).size.width,
+          height: 50,
+          // width: 320,
+          margin: const EdgeInsets.symmetric(horizontal: 20.0),
+          // width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             color: btnColor,
-            border: Border.all(width: 1, color: Colors.black),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(20.0),
           ),
           child: Center(
             child: Text(
               buttonText!,
-              style: TextStyle(
-                color: textColor,
-                fontSize: 20,
-              ),
+              style: textColor != null
+                  ? headline2.copyWith(color: textColor)
+                  : headline2,
             ),
           ),
         ),

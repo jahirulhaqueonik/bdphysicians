@@ -1,4 +1,5 @@
 import 'package:bdphysicians/pages/login_page.dart';
+import 'package:bdphysicians/pages/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:bdphysicians/core/space.dart';
@@ -15,14 +16,19 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
-    Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginPage(),
-          ));
+    Future.delayed(const Duration(seconds: 50)).then((_) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => const LoginPage(),
+      ));
     });
+
+    // Timer(const Duration(seconds: 2), () {
+    //   Navigator.pushReplacement(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (context) => const LoginPage(),
+    //       ));
+    // });
   }
 
   @override

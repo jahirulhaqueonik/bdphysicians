@@ -1,3 +1,4 @@
+import 'package:bdphysicians/auth_controller.dart';
 import 'package:bdphysicians/core/colors.dart';
 import 'package:bdphysicians/core/space.dart';
 import 'package:bdphysicians/core/text_style.dart';
@@ -6,6 +7,7 @@ import 'package:bdphysicians/services/firebase_auth_service.dart';
 import 'package:bdphysicians/widget/customized_button.dart';
 import 'package:bdphysicians/widget/text_field.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -105,66 +107,68 @@ class _SignUpPageState extends State<SignUpPage> {
               isPassword: true,
             ),
             const SpaceVH(height: 10.0),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                children: [
-                  CustomizedButton(
-                      buttonText: 'SIGN UP',
-                      btnColor: blueButton,
-                      textColor: whiteText,
-                      onPressed: () async {
-                        try {
-                          await FirebaseAuthService().signup(
-                              _userEmail.text.trim(), _userPass.text.trim());
-                          if (!mounted) return;
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginPage()));
-                        } on FirebaseException catch (e) {
-                          debugPrint(e.message);
-                        }
-                      })
-                ],
-              ),
-            ),
-            const SpaceVH(height: 10.0),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
+            GestureDetector(
+              onTap: () {
+                AuthController.instance.register(
+                  _userEmail.text.trim(),
+                  _userPass.text.trim(),
+                );
               },
-              child: RichText(
-                text: TextSpan(children: [
-                  TextSpan(
-                    text: 'Already have an account?',
-                    style: headline1.copyWith(
-                      fontSize: 14.0,
-                    ),
-                  ),
-                  TextSpan(
-                      text: 'Sign In',
-                      style: headlineDot.copyWith(
-                        fontSize: 14.0,
-                      )),
-                ]),
+              child: const CustomizedButton(
+                buttonText: 'SIGN UP',
+                btnColor: blueButton,
+                textColor: whiteText,
               ),
             ),
             // Align(
             //   alignment: Alignment.bottomCenter,
             //   child: Column(
             //     children: [
-            //       SecondaryButton(
-            //         onTap: () {
-            //           Navigator.pop(context);
-            //         },
-            //         text: 'BACK TO SIGN IN',
-            //         btnColor: blueButton,
-            //         textColor: blueText,
-            //       )
+            //       CustomizedButton(
+            //           buttonText: 'SIGN UP',
+            //           btnColor: blueButton,
+            //           textColor: whiteText,
+            //           onPressed: () async {
+            //             try {
+            //               await FirebaseAuthService().signup(
+            //                   _userEmail.text.trim(), _userPass.text.trim());
+            //               if (!mounted) return;
+            //               Navigator.push(
+            //                   context,
+            //                   MaterialPageRoute(
+            //                       builder: (context) => const LoginPage()));
+            //             } on FirebaseException catch (e) {
+            //               debugPrint(e.message);
+            //             }
+            //           })
             //     ],
             //   ),
             // ),
+            const SpaceVH(height: 10.0),
+            RichText(
+              text: TextSpan(children: [
+                TextSpan(
+                  text: 'Already Have An Ac count?',
+                  style: headline1.copyWith(
+                    fontSize: 14.0,
+                  ),
+                  children: [
+                    TextSpan(
+                        text: 'Sign In',
+                        style: headlineDot.copyWith(
+                          fontSize: 14.0,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage()));
+                          })
+                  ],
+                ),
+              ]),
+            ),
           ],
         ),
       ),

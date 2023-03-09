@@ -2,17 +2,18 @@ import 'package:bdphysicians/pages/login_page.dart';
 import 'package:bdphysicians/pages/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   //AuthController.instance..
-  final AuthController instance = Get.find();
+  static AuthController instance = Get.find();
 
   //email, password, name...
   late Rx<User?> _user;
 
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  get user => null;
 
   @override
   void onReady() {
@@ -34,24 +35,58 @@ class AuthController extends GetxController {
     }
   }
 
-  void register(String email, password) {
+  void register(String email, password) async {
     try {
-      auth.createUserWithEmailAndPassword(email: email, password: password);
+      await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
     } catch (e) {
       Get.snackbar(
         "About User",
         "User Message",
         backgroundColor: Colors.redAccent,
         snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.all(10.0),
         titleText: const Text(
-          "Accou nt Creation Failed",
-          style: TextStyle(color: Colors.white),
+          "Account Creation Failed",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.center,
         ),
-        messageText: Text(
-          e.toString(),
-          style: const TextStyle(color: Colors.white),
+        messageText: const Text(
+          "Require Email or Password",
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
         ),
       );
     }
+  }
+
+  void login(String email, password) async {
+    try {
+      await auth.signInWithEmailAndPassword(email: email, password: password);
+    } catch (e) {
+      Get.snackbar(
+        "About Login",
+        "Login Message",
+        backgroundColor: Colors.redAccent,
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.all(10.0),
+        titleText: const Text(
+          "Login Failed",
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+        messageText: const Text(
+          "Incorrect Email or Password",
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+  }
+
+  void logedOut() async {
+    await auth.signOut();
   }
 }
