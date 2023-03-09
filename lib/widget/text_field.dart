@@ -63,7 +63,7 @@ class _CustomizedTextFieldState extends State<CustomizedTextField> {
         autocorrect: widget.isPassword! ? false : true,
         textAlignVertical: TextAlignVertical.center,
         controller: widget.myController,
-        obscureText: _isPasswordVisible && widget.isPassword! ? false : true,
+        obscureText: !_isPasswordVisible && widget.isPassword!,
         focusNode: _focusNode,
         decoration: InputDecoration(
           suffix: widget.isPassword!
