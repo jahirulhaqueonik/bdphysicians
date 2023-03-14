@@ -1,9 +1,9 @@
-import 'package:bdphysicians/core/colors.dart';
-import 'package:bdphysicians/core/space.dart';
-import 'package:bdphysicians/core/text_style.dart';
-import 'package:bdphysicians/pages/signup_page.dart';
-import 'package:bdphysicians/widget/main_button.dart';
-import 'package:bdphysicians/widget/text_field.dart';
+import 'package:bdphysicians/constants/colors.dart';
+import 'package:bdphysicians/constants/space.dart';
+import 'package:bdphysicians/constants/text_style.dart';
+import 'package:bdphysicians/screen/signup_screen.dart';
+import 'package:bdphysicians/components/main_button.dart';
+import 'package:bdphysicians/components/text_field.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPass extends StatefulWidget {

@@ -1,9 +1,9 @@
-import 'package:bdphysicians/pages/login_page.dart';
-import 'package:bdphysicians/pages/main_screen.dart';
+import 'package:bdphysicians/screen/login_screen.dart';
+import 'package:bdphysicians/screen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:bdphysicians/core/space.dart';
-import 'package:bdphysicians/core/text_style.dart';
+import 'package:bdphysicians/constants/space.dart';
+import 'package:bdphysicians/constants/text_style.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

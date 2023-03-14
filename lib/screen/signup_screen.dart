@@ -1,11 +1,11 @@
 import 'package:bdphysicians/auth_controller.dart';
-import 'package:bdphysicians/core/colors.dart';
-import 'package:bdphysicians/core/space.dart';
-import 'package:bdphysicians/core/text_style.dart';
-import 'package:bdphysicians/pages/login_page.dart';
+import 'package:bdphysicians/constants/colors.dart';
+import 'package:bdphysicians/constants/space.dart';
+import 'package:bdphysicians/constants/text_style.dart';
+import 'package:bdphysicians/screen/login_screen.dart';
 import 'package:bdphysicians/services/firebase_auth_service.dart';
-import 'package:bdphysicians/widget/customized_button.dart';
-import 'package:bdphysicians/widget/text_field.dart';
+import 'package:bdphysicians/components/customized_button.dart';
+import 'package:bdphysicians/components/text_field.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

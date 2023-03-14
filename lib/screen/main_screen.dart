@@ -1,7 +1,7 @@
 import 'package:bdphysicians/auth_controller.dart';
-import 'package:bdphysicians/core/colors.dart';
-import 'package:bdphysicians/pages/login_page.dart';
-import 'package:bdphysicians/widget/customized_button.dart';
+import 'package:bdphysicians/constants/colors.dart';
+import 'package:bdphysicians/screen/login_screen.dart';
+import 'package:bdphysicians/components/customized_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

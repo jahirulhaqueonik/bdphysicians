@@ -1,4 +1,4 @@
-import 'package:bdphysicians/core/text_style.dart';
+import 'package:bdphysicians/constants/text_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomizedButton extends StatelessWidget {

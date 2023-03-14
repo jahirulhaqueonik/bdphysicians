@@ -1,8 +1,8 @@
 import 'package:bdphysicians/auth_controller.dart';
-import 'package:bdphysicians/core/style.dart';
-import 'package:bdphysicians/pages/login_page.dart';
-import 'package:bdphysicians/pages/main_screen.dart';
-import 'package:bdphysicians/pages/splash_screen.dart';
+import 'package:bdphysicians/constants/style.dart';
+import 'package:bdphysicians/screen/login_screen.dart';
+import 'package:bdphysicians/screen/main_screen.dart';
+import 'package:bdphysicians/splash/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.hasData) {
             return const MainScreen();
           } else {
-            return const LoginPage();
+            return const SplashScreen();
           }
         },
       ),

@@ -1,5 +1,5 @@
-import 'package:bdphysicians/core/colors.dart';
-import 'package:bdphysicians/core/text_style.dart';
+import 'package:bdphysicians/constants/colors.dart';
+import 'package:bdphysicians/constants/text_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomizedTextField extends StatefulWidget {

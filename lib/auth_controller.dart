@@ -1,5 +1,6 @@
-import 'package:bdphysicians/pages/login_page.dart';
-import 'package:bdphysicians/pages/main_screen.dart';
+import 'package:bdphysicians/screen/login_screen.dart';
+import 'package:bdphysicians/screen/main_screen.dart';
+import 'package:bdphysicians/splash/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,7 @@ class AuthController extends GetxController {
   _initialScreen(User? user) {
     if (user == null) {
       print("login page");
-      Get.offAll(() => const LoginPage());
+      Get.offAll(() => const SplashScreen());
     } else {
       print("Welcome Page");
       Get.offAll(() => const MainScreen());

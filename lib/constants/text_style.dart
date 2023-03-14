@@ -1,4 +1,4 @@
-import 'package:bdphysicians/core/colors.dart';
+import 'package:bdphysicians/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 const TextStyle bdtitle = TextStyle(
